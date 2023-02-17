@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from main import views
 
 
@@ -40,10 +40,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('list/', views.ToDoListView.as_view()),
     path('create/', views.ToDoCreateView.as_view()),
+    path('sign_up/', views.SignUpView.as_view()),
     path('update/<int:pk>', views.ToDoUpdateView.as_view()),
     path('destroy/<pk>', views.ToDoDestroyView.as_view()),
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 ]
 
